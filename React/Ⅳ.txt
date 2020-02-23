@@ -1,0 +1,100 @@
+○ フォームを作ろう
+
+	STEP1:フォームの見た目の作成
+	STEP2:送信完了メッセージの準備
+	STEP3:フォームとメッセージの切り替え
+	
+○ 入力欄のJSX
+
+	メールアドレスの入力欄(inputタグ)
+	お問い合わせ内容の入力欄(textareaタグ)
+	フォームのJSXは、HTMLと違った書き方をする
+		HTML:	<input>		<textarea></textarea>
+		JSX:	<input />	<textarea />
+	
+○ 送信ボタンのJSX
+
+	送信ボタンはinputタグを用い、type='submit'を指定する
+	ボタンの表示名を変更するために、value='表示名'を指定する
+	こちらも/(自己クローズタグ)を忘れないように
+	
+○ formタグ
+
+	フォーム全体は、<formタグ>で囲む必要あり
+	入力欄と送信ボタンを囲むように、<form>タグを書く
+	
+○ 表示の切り替え
+
+	フォームが送信されたかをstateで管理する
+	isSubmittedという真偽値型のstateを用意する
+	最初フォームは送信されていないため、isSubmittedの初期値はfalseである
+	isSubmittedの値によって表示を切り替えられる
+	
+○ onSubmitイベント
+
+	フォームが送信されたときに処理を実行するには、formタグに対してonSubmitイベントを指定する
+	
+○ stateを更新するメソッド
+
+	stateの値を変更するメソッドを作成し、フォームの送信時に呼び出す
+	
+○ 入力値をstateで管理するステップ
+
+	STEP1:stateとinput、textarea準備
+	STEP2:入力イベント 入力値の取得、入力値のチェック
+	STEP3:stateの更新
+	
+○ stateとinputの準備
+
+	Reactでフォームを作る場合、stateと入力値を紐づける必要がある
+	メールアドレスの入力値を管理するstateのemailを用意する
+	また、inputタグのvalue属性にstateの値を指定する
+	
+○ value属性の指定
+
+	HTMLと同様にvalue属性に値を指定することで、指定された値を表示することができる
+	そのため、value属性にstateの値を指定することで、フォームの入力欄にstateの値が表示される
+	
+○ onChanegeイベント
+
+	フォームの入力や削除が行われたときに処理を実行するには、onChangeイベントを用いる
+	inputタグに対してonChangeイベントを指定する
+	
+○ 入力値の取得
+
+	入力値の取得は、onChangeイベントの関数にeventという引数を追加し、event.target.valueとすると取得できる
+	
+○ stateを更新する
+
+	handleEmailChangeメソッドをつくりstateの変更を行う
+	メソッドにeventを渡すことでメソッド内で入力値を取得できる
+	
+○ 入力値が空かどうかを管理する
+
+	入力値が空かどうかの状態をstateで管理する
+	stateは新たにhasEmailErrorという真偽値型のstateを定義する
+	
+○ 入力値が空かどうかの判定
+
+	メールアドレスの入力値が空かどうかを判定するために、
+	handleEmailChangeメソッドは以下の通り
+		const isEmpty = inputValue === '';
+		
+○ 複数のstateの同時更新
+
+	複数のstateを更新する場合、コンマ(,)で区切り一度のsetStateでまとめて変更する
+	
+○ 2つのstateと入力値の表示
+
+	お問い合わせ欄の入力値の管理するcontentと、
+	入力値が空かどうかを管理するhasContentErrorという2つのstateを用意する
+	textareaタグでもvalue属性にstateの値を指定することで入力値を表示する
+	
+○ onChangeとstateの更新
+
+	textareaタグのonChangeイベントでメソッドを呼び出し、2つのstateを更新する
+	eventを引数に渡し、event.target.valueで入力値を取得する
+	
+○ エラーメッセージ
+
+	hasContentErrorと条件分岐を用いてエラーメッセージを表示する

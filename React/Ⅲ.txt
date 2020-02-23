@@ -1,0 +1,74 @@
+○ コンポーネントのファイル
+
+	サイトは、複数のコンポーネントからできている
+	Appコンポーネントの中に、Header、Main、Footerという3つのコンポーネントがある
+	Mainコンポーネントの中に4つのLessonコンポーネントがある
+	
+○ Lessonコンポーネントの作成
+
+	STEP1:コンポーネントの作成
+	STEP2:コンポーネントの表示
+	STEP3:各レッスンの情報を表示
+	
+○ コンポーネントの表示
+
+	Main.jsでLessonコンポーネントをimportする
+	Lessonコンポーネントは、<Lesson />で表示する
+
+○ propsを渡す
+
+	<Lesson />の部分で、props名=propsの値とするとpropsを渡せる
+	定数lesssonItemにレッスン情報をオブジェクトが代入される
+	
+○ propsを受け取る
+
+	Lessonコンポーネントに渡されたpropsは「this.props.props名」で取得できる
+	
+○ レッスンの情報(配列)
+
+	各レッスンの情報を配列にし、Main.jsに定義する
+	
+○ 配列とmap
+
+	配列lessonListに対してmapメソッドを使い、Lessonコンポーネントを表示する
+	lessonItemという引数には、配列lessonListの要素である各レッスンのオブジェクトが順に代入される
+	lessonItemを用いて、nameとimageのpropsを渡す
+
+○ モーダルの作成
+
+	STEP1:モーダルのJSXを追加する
+	STEP2:初期状態でモーダルを隠す
+	STEP3:モーダルの表示・非表示
+
+○ モーダルのJSX
+
+	Lessonコンポーネントの中にモーダルのJSXを追加する
+	モーダルには「レッスンの名前」と「レッスンの紹介文」を表示する
+	
+○ レッスン情報の修正
+
+	モーダルで表示する「レッスンの紹介文」の情報を追加する
+	配列lessonListのそれぞれの要素に、introductionというプロパティを追加する
+	Lessonコンポーネントにpropsとして渡す
+	
+○ モーダルの表示・非表示
+
+	モーダルは、クリックによって表示・非表示が切り替わる
+	そこで、モーダルが表示されているかそうでないかという情報をssateにしましょう
+	isMOdalOpenという真偽値型のstateを用意する
+	
+○ stateの定義
+
+	stateは、constructorを定義する
+	初期状態でオーダルを非表示にしたい場合は、「isModalOpen」の初期値をfalseにする
+	
+○ JSXと変数
+
+	「モーダルのJSX」には変数を利用する
+	JSXは、変数を代入し{変数名}で表示できる
+
+○ JSXとif文
+
+	isModalOpenがtrueのときだけモーダルが表示されるようにする
+	変数modalを用意し、条件分岐を行えば、isModalOpenがtrueのときだけJSXが代入される
+	変数に代入するJSXが複数行の場合、JSXを()で囲む

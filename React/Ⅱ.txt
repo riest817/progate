@@ -1,0 +1,80 @@
+○ ブラウザの表示される流れ
+
+	App.jsに書かれているJSXは最終的にHTMLに変換されて、ブラウザに表示される
+	Reactコードを実際にブラウザに表示するには、App.js以外にもindex.jsとindex.htmlというファイルが必要になる
+	
+○ App.jsとindex.jsの関係
+
+	index.js内で「ReactDom.render(<App />,...」と書くことで、App.jsのJSXが、HTMLに変換される
+	この書き方は定型文なので暗記する必要なし
+	「..., document.getElemetByld('id名'));」と書くことで、変換されたHTMLがindex.htmlの指定されたid名の中に挿入される
+	
+○ CSSを読み込む
+
+	JSXは最終的にindex.htmlに挿入され、ブラウザに表示される
+	そのため、index.html内でstylesheet.cssを読み込むことで、CSSを適用できる
+	
+○ CSSを適用する
+
+	JSXにはHTMLと同じように、JSXのタグ名を指定してCSSを適用できる
+	
+○ JSXとクラス名
+
+	JSXにクラス名をつける場合、HTMLと書き方が違うため注意
+	「className='クラス名'」
+	「class='クラス名'」ではない
+	CSSの指定方法は変化なし
+	
+○ コンポーネント
+
+	「部品」や「パーツ」という意味
+	Reactでは、見た目を機能ごとにコンポーネント化して、コンポーネントを組み合わせることでWebサイトの見た目を作る
+	
+○ コンポーネントの構成
+
+	まず、Reactをインポートする
+	そして、React.Componentを継承するクラスを作成する
+	このクラスがコンポーネントである
+	作成したクラスの中で、renderメソッドを定義し、return内でJSXを記述する
+	
+○ Languageコンポーネントが表示される流れ
+
+	Language.js -> App.js(挿入) -> index.js(変換) -> index.html(挿入)
+	
+○ コンポーネントの表示
+
+	App.js内でLanguageコンポーネントを呼び出すには、コンポーネントをLanguage.jsでexportする必要がある
+	App.js内で
+		① コンポーネントをimport
+		② JSX内に<コンポーネント名 />と書く
+	
+○ コンポーネントの特徴
+
+	コンポーネントは一度作れば、何度でも呼び出すことができる
+	
+○ propsとは
+
+	App.jsから、各言語の名前と画像データをLanguageコンポーネントに渡すことによって、言語ごとに表示を変えることができる
+	Apss.jsから渡すこのデータをprops(プロップス)という
+	
+○ propsの渡し方
+
+	propsとは、「props名=値」という形で、コンポーネントを呼び出す箇所を渡す
+	今回は、Languageコンポーネントにnameちimageという2つのpropsを渡す
+	タグの中身は、改行すると見やすい
+	
+○ propsの中身
+
+	渡されたpropsは、this.propsで取得できる
+	this.propsは{ props名:値}というオブジェクトになる
+	
+○ propsの取得
+	
+	this.propsと書くことで{props名:値}というオブジェクトを取得できるので、
+	「this.props.props名」とすることでpropsの値を取得できる
+	
+○ mapメソッド
+
+	mapメソッドで配列fruitListの各要素に対して順に処理を行い、各要素<p>タグで囲んで表示する
+	mapメソッドの戻り値はJSXなので、引数であるfruitItemは中括弧で囲むことに注意
+	

@@ -1,0 +1,36 @@
+○ INSERT
+
+	「挿入する」という意味
+	INSERT INTO students(id, name, course)
+	VALUES(4, "Kate", "Java")
+	
+○ AUTO INCREMENT
+
+	「自動で増加する」という意味
+	データが作成されるときに自動で値が割り当てられる
+	INSERT INTO students(  name, course)
+	VALUES(  "KATE", "Java");
+	
+○ UPDATE
+
+	データを更新したいときに使う
+	複数変更したいカラムがある場合は、コンマ（<）で区切る
+	UPDATE students
+	SET name = Jordan", course = "HTML"
+	WHERE id = 6; 
+	
+○ UPDATEの注意点
+
+	WHEREで更新するレコードを指定しないとカラム内の全データが更新されてしまう
+	UPDATE後はデータを戻すことができない
+	実行前に一度SELECTを実行して、操作するデータを確認する習慣をつける
+	
+○ DELETE
+
+	レコードを削除するときに使う
+	DELETE後はデータを戻すことができない
+	実行前に一度SELECTを実行して、操作するデータを確認する習慣をつける
+	WHEREで指定しないと全削除
+	DELETE FROM students
+	WHERE id = 7;
+	

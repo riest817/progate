@@ -1,0 +1,140 @@
+○	postsコントローラの作成
+
+	一覧ページを作成する際は、indexというアクション名を使用することが一般的
+	「raols generate controller」は「rails g controller」
+	
+○ viewファイル内で変数を定義する
+
+	index.html.erbのようなerbという形式のファイルは、<% %>で囲むことで、HTMLファイルの中にRubyコードを記述できる。
+	「erb」とは「Embedded Ruby(埋め込みRuby)」の略
+	
+○ 変数の値を表示する
+
+	埋め込むRubyコードをブラウザに表示したい場合は、<%= %>を用いる
+	
+○ each文
+
+	配列postsから要素を1つずつ取り出して変数postに代入し表示する
+	こうすることで、postsの要素数だけeach文の中身が実行されるので、投稿数だけHTMLを書く必要がなくなる
+	「posts.each do |post|」の部分と「end」の部分は表示用ではないので、
+	「<%= %>」ではなく「<% %>」で囲むこと
+	
+○ アクションで変数を定義する
+
+	ビューで使う変数はアクション内で定義するようにする
+	「def index」と「end」の間で変数を定義することで、その変数をindex.html.erb内で使用できる
+	
+○ @変数
+
+	通常、アクション内で定義した変数をビューで使用することはできない
+	変数名を「@」か始めることでこの変数は特殊な変数となり、ビューファイルでも使用することができる
+	アクションで定義したビュー用の変数には「@」をつけ忘れないようにしよう
+	
+○ データベースの仕組み
+
+	表のことを「テーブル」
+	縦の列のことを「カラム」、1行ずつのデータのことを「レコード」
+	
+○ テーブル作成の準備
+
+	マイグレーションファイルと呼ばれる、データベースに変更を指示するためのファイルを作成する
+	postsテーブルを作成するマイグレーションファイルは「rails g model Post content:text」というコマンドで作成される
+	「text」は「長い文字列」を意味しており、contentカラムにどのようなデータが入るかを意味する
+	
+○ マイグレーションファイルが作成される場所
+
+	さきほどのコマンドを実行すると、db/migrateフォルダの下にマイグレーションファイルが作成される
+	
+○ テーブルの用意
+
+	「rails db:migrate」
+	コマンドを実行すると、マイグレーションファイルに書いてある指示通りにテーブルが作成される
+	
+○ 自動生成されるカラム
+
+	指示した content 以外にも id, create_at, update_at という3つのカラムが自動生成される
+	
+○ マイグレーションエラー
+
+	Railsでは、データベースに反映されていないマイグレーションファイルが存在する状態で、どこかのページにアクセスするとマイグレーションエラーが発生する
+	マイグレーションファイルを作成した場合は必ず「rails db:migrate」を実行する
+	
+○ Postモデル
+
+	「rails g model」コマンドによって、Postモデルが定義されたファイル「post.rb」がapp/modelsフォルダ中に作成されている
+	ファイルの中には、ApplicationRecordクラスを継承するPostクラスが定義されている
+	このようにApplicationRecordを継承したクラスをモデルと呼ぶ
+	
+○ rails g model コマンドのまとめ
+
+	「rails g model Post ...」の「Post」の部分には、実はモデル名を指定する
+	このコマンドによって、以下の2つのファイルが生成される
+	・app/modelsフォルダにモデルが定義されたファイル
+	・db/migrateフォルダにマイグレーションファイル
+	
+○ rails consoleの使い方
+
+	ターミナル上で「rails console」と入力し実行（Enter）することで、コンソールを起動できる
+	「quit」を実行すると、コンソールを終了する
+	コンソール上で変数を定義できる
+	定義した変数は「quit」でコンソールを終了するまで使い続けられる
+	
+○ テーブルに投稿データを保存
+
+	① newメソッドでPostモデルのインスタンスを作成
+	② postsテーブルに保存
+	
+○ newメソッド
+
+	「rails console」を使って、Postモデル(Postクラス)からPostインスタンスを作成するにはnewメソッドを使う
+	$ rails console
+	...
+	> post = Post.new(content: "Hello World")
+	
+○ saveメソッド
+
+	作成したpostインスタンスをpostsテーブルに保存するには、saveメソッドを使う
+	saveメソッドを使うことができるのはPostモデルがApplicationRecordを継承しているためである
+	$ rails console
+	...
+	> post = Post.new(content: "Hello World")
+	> post.save
+	
+○ firstメソッド
+
+	「Post.first」することでpostsテーブルにある最初のデータを取得することができる
+	「post.content」とすることで「Post.first」で取得したデータから投稿内容を取得することができる
+	$ rails console
+	> post = Post.first
+	> post.content
+	=> "今日からProgate"
+	
+○ allメソッド
+
+	テーブルに保存されている全てのデータを取得する
+	「Post.all」では、テーブルにある全てのデータが配列で取得できる
+	Post.all[0].content とすることで、投稿内容を取得できる
+	
+○ 全ての投稿を表示する
+
+	postsコントローラのindexアクション内で@postsに、Post.allで取得したデータを代入するとき、
+	ビューで@postsに代入されている配列データをeach文で1つずつ変数postに代入する
+	postsコントローラ(posts_controller.rb)で
+	@posts = Post.all
+	
+○ 共通のレイアウトをまとめる
+
+	Railsでは、「views/layouts/application.html/erb」に共通のHTMLを書いておくことができる
+	初期状態でも、<head>タグや<body>タグの共通部分はこちらに書かれている
+	
+○ レイアウトの仕組み
+
+	「views/layouts/application.html.erb」には<%= yield%>というコードがある
+	top.html.erbなどの各ビューファイルには、この<%= yield %>の部分に代入され、application.erbの一部としてブラウザに表示されていた
+	この仕組みによって、ヘッダーなどの共通のレイアウトを１つにまとめることができる
+	
+○ link_toメソッド
+
+	Railsではlink_toメソッドを使うと<a>タグを作成できる
+	link_toメソッドはRubyコードなので、「<%=%>」で囲むことに注意
+	第１引数に表示する文字、第２引数にURLを書くことでリンクが作成される

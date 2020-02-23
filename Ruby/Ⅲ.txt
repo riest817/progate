@@ -1,0 +1,6 @@
+○ 真偽値を返すメソッド
+
+	ソッド名の末尾に「?」をつける慣習がある
+def shipping_free?(price)
+  return price >= 5000
+end
